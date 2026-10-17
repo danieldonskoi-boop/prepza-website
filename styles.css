@@ -84,6 +84,11 @@ a {
   border-radius: 8px;
 }
 
+/* The wordmark's final "a" is green, like the leaf in the icon. */
+.brand-a {
+  color: var(--accent);
+}
+
 nav {
   display: flex;
   gap: 4px;
