@@ -249,3 +249,90 @@ h1 {
   font-size: 14px;
   margin: 0 0 16px;
 }
+
+/* ---- launch sign-up ---- */
+
+.signup {
+  max-width: 460px;
+  margin: 28px auto 0;
+  text-align: left;
+}
+
+.signup label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.signup-row {
+  display: flex;
+  gap: 8px;
+}
+
+.signup input[type='email'] {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.signup input[type='email']:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.signup button {
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--accent-deep);
+  color: var(--bg);
+  font: 600 16px var(--sans);
+  cursor: pointer;
+}
+
+.signup button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.signup-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.signup-status {
+  min-height: 1.6em;
+  margin: 8px 0 0;
+  font-size: 15px;
+  text-align: center;
+}
+
+.signup-status.ok {
+  color: var(--accent-deep);
+}
+
+.signup-status.error {
+  color: #b3261e;
+}
+
+.signup-fine {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (max-width: 420px) {
+  .signup-row {
+    flex-direction: column;
+  }
+}
