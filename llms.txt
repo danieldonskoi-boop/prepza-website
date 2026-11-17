@@ -1,0 +1,19 @@
+# Prepza
+
+> Prepza is an Australian nutrition tracker and meal-prep planner for iPhone. Log meals by photo, voice, barcode or nutrition label, get calorie and macro targets worked out for you, and build meals that hit them.
+
+- Made in Australia, with a food database of Australian supermarket products, and energy in kilojoules or calories.
+- Targets: calories from the Mifflin-St Jeor equation, your activity and goal pace; protein from body weight (2.0 g/kg when losing weight, 1.8 g/kg when maintaining or gaining; above a BMI of 30, the weight at a BMI of 25 is used); fat about 25% of energy; carbs the rest.
+- Tools: Build a meal around your macros, Finish my day, recipe import and recipe finder, meal prep shopping lists for Woolworths and Coles, a weekly AI Coach check-in, and Apple Health (weight and active energy).
+- Prepza gives general nutrition information and estimates, not medical advice.
+
+## Guides
+
+- [How much protein do you need? A guide for Australians](https://prepza.com.au/blog/how-much-protein-do-you-need.html): The official Australian minimum is 0.75 g per kg of body weight for women and 0.84 g for men. If you train or are losing weight, research supports about 1.6 to 2.2 g per kg.
+
+## About
+
+- [Home](https://prepza.com.au/)
+- [Support](https://prepza.com.au/support.html)
+- [Privacy Policy](https://prepza.com.au/privacy.html)
+- [Terms of Use](https://prepza.com.au/terms.html)
