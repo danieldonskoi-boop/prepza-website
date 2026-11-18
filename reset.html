@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reset your password - Prepza</title>
+<meta name="description" content="Choose a new password for your Prepza account.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://prepza.com.au/reset.html">
+<link rel="icon" href="/icon.png">
+<link rel="apple-touch-icon" href="/icon.png">
+<meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A1A18" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="/styles.css">
+<link rel="alternate" type="application/rss+xml" title="Prepza blog" href="https://prepza.com.au/blog/feed.xml">
+<meta name="referrer" content="no-referrer">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="/"><img src="/icon.png" alt="" width="34" height="34"><span>Prepz<span class="brand-a">a</span></span></a>
+    <nav aria-label="Main"><a href="/">Home</a><a href="/blog/">Blog</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></nav>
+  </div>
+</header>
+<main>
+<section class="hero reset">
+  <div class="wrap hero-inner">
+    <img class="hero-icon" src="/icon.png" alt="Prepza app icon" width="96" height="96">
+    <div id="reset-choose">
+      <h1>Reset your password</h1>
+      <p class="lead">On your phone with Prepza installed? Open the app to choose a new password. Otherwise, you can do it right here.</p>
+      <a class="button" id="open-app" href="prepzaapp://reset-password">Open in Prepza</a>
+      <button class="button button-quiet" type="button" id="use-web">Reset it here instead</button>
+    </div>
+    <form class="reset-form" id="reset-form" hidden novalidate>
+      <h1>Choose a new password</h1>
+      <label for="new-password">New password</label>
+      <input id="new-password" type="password" autocomplete="new-password" minlength="6" required>
+      <label for="confirm-password">Type it again</label>
+      <input id="confirm-password" type="password" autocomplete="new-password" minlength="6" required>
+      <p class="signup-fine">At least 6 characters.</p>
+      <button class="button" type="submit">Save new password</button>
+      <p class="signup-status" role="status" aria-live="polite"></p>
+    </form>
+    <div id="reset-done" hidden>
+      <h1>Password updated</h1>
+      <p class="lead">You can now log in to Prepza with your new password.</p>
+      <a class="button" href="prepzaapp://">Open Prepza</a>
+    </div>
+    <div id="reset-bad" hidden>
+      <h1>This link has expired</h1>
+      <p class="lead">Reset links only work once, and only for an hour. In Prepza, tap <strong>Forgot password?</strong> on the log-in screen to get a new one.</p>
+    </div>
+  </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js" crossorigin="anonymous"></script>
+<script>
+(() => {
+  const params = new URLSearchParams(location.search);
+  const tokenHash = params.get('token_hash');
+  const type = params.get('type') || 'recovery';
+  const show = (id) => {
+    for (const el of ['reset-choose', 'reset-form', 'reset-done', 'reset-bad']) {
+      document.getElementById(el).hidden = el !== id;
+    }
+  };
+  if (!tokenHash || type !== 'recovery') {
+    show('reset-bad');
+    return;
+  }
+  // The app checks the code itself (app/reset-password).
+  document.getElementById('open-app').href =
+    'prepzaapp://reset-password?token_hash=' + encodeURIComponent(tokenHash) + '&type=recovery';
+  document.getElementById('use-web').addEventListener('click', () => {
+    show('reset-form');
+    document.getElementById('new-password').focus();
+  });
+
+  const client = window.supabase.createClient("https://sbooiwlpufsnwqdxzglh.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNib29pd2xwdWZzbndxZHh6Z2xoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4NjM4NjksImV4cCI6MjEwNDQzOTg2OX0.-cY8-3K3v0nuojcmFicwFBWoi9Yq2dD5cg3iR_vDqWI", {
+    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+  });
+  const form = document.getElementById('reset-form');
+  const status = form.querySelector('.signup-status');
+  const button = form.querySelector('button');
+  const say = (text, ok) => {
+    status.textContent = text;
+    status.className = 'signup-status' + (ok ? ' ok' : ' error');
+  };
+  let verified = false;
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const password = form.querySelector('#new-password').value;
+    const again = form.querySelector('#confirm-password').value;
+    if (password.length < 6) return say('Your password needs at least 6 characters.', false);
+    if (password !== again) return say('Those passwords don’t match.', false);
+    button.disabled = true;
+    say('Saving…', true);
+    try {
+      if (!verified) {
+        const { error } = await client.auth.verifyOtp({ token_hash: tokenHash, type: 'recovery' });
+        if (error) {
+          show('reset-bad');
+          return;
+        }
+        verified = true;
+      }
+      const { error } = await client.auth.updateUser({ password });
+      if (error) {
+        say(error.message || 'That didn’t work. Please try again.', false);
+        return;
+      }
+      await client.auth.signOut();
+      show('reset-done');
+    } catch {
+      say('Something went wrong. Check your connection and try again.', false);
+    } finally {
+      button.disabled = false;
+    }
+  });
+})();
+</script>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <p>&copy; 2026 Prepza. Made in Australia.</p>
+    <p><a href="mailto:support@prepza.com.au">support@prepza.com.au</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a></p>
+  </div>
+</footer>
+</body>
+</html>

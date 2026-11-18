@@ -471,3 +471,75 @@ h1 {
     padding: 9px 10px;
   }
 }
+
+/* ---- password reset ---- */
+
+.button {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  margin: 12px auto 0;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--accent-deep);
+  color: var(--bg);
+  font: 600 16px var(--sans);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.button-quiet {
+  background: transparent;
+  color: var(--accent-deep);
+  border: 1px solid var(--border);
+}
+
+.reset h1 {
+  font-size: clamp(30px, 6vw, 40px);
+}
+
+.reset-form {
+  max-width: 360px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.reset-form h1 {
+  text-align: center;
+}
+
+.reset-form label {
+  display: block;
+  font-weight: 600;
+  margin: 14px 0 6px;
+}
+
+.reset-form input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.reset-form input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.reset-form .signup-fine {
+  text-align: left;
+}
+
+[hidden] {
+  display: none !important;
+}
