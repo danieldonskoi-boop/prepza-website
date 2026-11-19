@@ -9,6 +9,7 @@
 
 ## Guides
 
+- [Kilojoules vs calories: how to read an Australian nutrition label](https://prepza.com.au/blog/kilojoules-vs-calories.html): One Calorie is 4.184 kJ, so divide kilojoules by about 4.2 to get Calories. Use the per 100 g column to compare foods and the per serve column, adjusted to your portion, for what you actually eat.
 - [How much protein do you need? A guide for Australians](https://prepza.com.au/blog/how-much-protein-do-you-need.html): The official Australian minimum is 0.75 g per kg of body weight for women and 0.84 g for men. If you train or are losing weight, research supports about 1.6 to 2.2 g per kg.
 
 ## About
